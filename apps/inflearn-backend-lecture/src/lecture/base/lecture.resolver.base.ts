@@ -18,6 +18,7 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { Public } from "../../decorators/public.decorator";
+import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { CreateLectureArgs } from "./CreateLectureArgs";
 import { UpdateLectureArgs } from "./UpdateLectureArgs";
@@ -54,8 +55,13 @@ export class LectureResolverBase {
     return this.service.findMany(args);
   }
 
-  @Public()
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.Query(() => Lecture, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Lecture",
+    action: "read",
+    possession: "own",
+  })
   async lecture(
     @graphql.Args() args: LectureFindUniqueArgs
   ): Promise<Lecture | null> {
