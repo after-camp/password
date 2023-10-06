@@ -18,6 +18,9 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { Public } from "../../decorators/public.decorator";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
+import { CreateLectureArgs } from "./CreateLectureArgs";
+import { UpdateLectureArgs } from "./UpdateLectureArgs";
 import { DeleteLectureArgs } from "./DeleteLectureArgs";
 import { LectureCountArgs } from "./LectureCountArgs";
 import { LectureFindManyArgs } from "./LectureFindManyArgs";
@@ -61,6 +64,47 @@ export class LectureResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Lecture)
+  @nestAccessControl.UseRoles({
+    resource: "Lecture",
+    action: "create",
+    possession: "any",
+  })
+  async createLecture(
+    @graphql.Args() args: CreateLectureArgs
+  ): Promise<Lecture> {
+    return await this.service.create({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Lecture)
+  @nestAccessControl.UseRoles({
+    resource: "Lecture",
+    action: "update",
+    possession: "any",
+  })
+  async updateLecture(
+    @graphql.Args() args: UpdateLectureArgs
+  ): Promise<Lecture | null> {
+    try {
+      return await this.service.update({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new apollo.ApolloError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Lecture)

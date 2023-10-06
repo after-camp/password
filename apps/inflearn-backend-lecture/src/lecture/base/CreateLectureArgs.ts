@@ -9,27 +9,22 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { InputType, Field } from "@nestjs/graphql";
+import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { LectureCreateInput } from "./LectureCreateInput";
+import { ValidateNested } from "class-validator";
+import { Type } from "class-transformer";
 
-@InputType()
-class LectureCreateInput {
+@ArgsType()
+class CreateLectureArgs {
   @ApiProperty({
     required: true,
-    type: String,
+    type: () => LectureCreateInput,
   })
-  @IsString()
-  @Field(() => String)
-  description!: string;
-
-  @ApiProperty({
-    required: true,
-    type: String,
-  })
-  @IsString()
-  @Field(() => String)
-  title!: string;
+  @ValidateNested()
+  @Type(() => LectureCreateInput)
+  @Field(() => LectureCreateInput, { nullable: false })
+  data!: LectureCreateInput;
 }
 
-export { LectureCreateInput as LectureCreateInput };
+export { CreateLectureArgs as CreateLectureArgs };

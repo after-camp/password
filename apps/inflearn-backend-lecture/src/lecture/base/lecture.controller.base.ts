@@ -51,7 +51,9 @@ export class LectureControllerBase {
       data: data,
       select: {
         createdAt: true,
+        description: true,
         id: true,
+        title: true,
         updatedAt: true,
       },
     });
@@ -70,7 +72,9 @@ export class LectureControllerBase {
       ...args,
       select: {
         createdAt: true,
+        description: true,
         id: true,
+        title: true,
         updatedAt: true,
       },
     });
@@ -90,7 +94,9 @@ export class LectureControllerBase {
       where: params,
       select: {
         createdAt: true,
+        description: true,
         id: true,
+        title: true,
         updatedAt: true,
       },
     });
@@ -124,7 +130,9 @@ export class LectureControllerBase {
         data: data,
         select: {
           createdAt: true,
+          description: true,
           id: true,
+          title: true,
           updatedAt: true,
         },
       });
@@ -157,7 +165,9 @@ export class LectureControllerBase {
         where: params,
         select: {
           createdAt: true,
+          description: true,
           id: true,
+          title: true,
           updatedAt: true,
         },
       });

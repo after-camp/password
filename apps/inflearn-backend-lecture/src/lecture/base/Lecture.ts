@@ -30,7 +30,23 @@ class Lecture {
   })
   @IsString()
   @Field(() => String)
+  description!: string;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String)
+  title!: string;
 
   @ApiProperty({
     required: true,

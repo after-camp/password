@@ -1,1 +1,4 @@
-export type LectureCreateInput = {};
+export type LectureCreateInput = {
+  description: string;
+  title: string;
+};

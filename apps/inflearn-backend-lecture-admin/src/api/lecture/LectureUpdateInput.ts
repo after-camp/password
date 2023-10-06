@@ -1,1 +1,4 @@
-export type LectureUpdateInput = {};
+export type LectureUpdateInput = {
+  description?: string;
+  title?: string;
+};

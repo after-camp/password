@@ -26,7 +26,29 @@ class LectureWhereInput {
   @Field(() => StringFilter, {
     nullable: true,
   })
+  description?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  title?: StringFilter;
 }
 
 export { LectureWhereInput as LectureWhereInput };
