@@ -9,10 +9,6 @@ import { UserList } from "./user/UserList";
 import { UserCreate } from "./user/UserCreate";
 import { UserEdit } from "./user/UserEdit";
 import { UserShow } from "./user/UserShow";
-import { LectureList } from "./lecture/LectureList";
-import { LectureCreate } from "./lecture/LectureCreate";
-import { LectureEdit } from "./lecture/LectureEdit";
-import { LectureShow } from "./lecture/LectureShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -32,7 +28,7 @@ const App = (): React.ReactElement => {
   return (
     <div className="App">
       <Admin
-        title={"inflearn-backend-lecture"}
+        title={"inflearn-backend-lecture-1"}
         dataProvider={dataProvider}
         authProvider={jwtAuthProvider}
         theme={theme}
@@ -45,13 +41,6 @@ const App = (): React.ReactElement => {
           edit={UserEdit}
           create={UserCreate}
           show={UserShow}
-        />
-        <Resource
-          name="Lecture"
-          list={LectureList}
-          edit={LectureEdit}
-          create={LectureCreate}
-          show={LectureShow}
         />
       </Admin>
     </div>
