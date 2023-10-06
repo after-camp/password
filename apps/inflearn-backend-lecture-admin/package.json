@@ -1,5 +1,5 @@
 {
-  "name": "@inflearn-backend-lecture/admin",
+  "name": "@inflearn-backend-lecture-1/admin",
   "private": true,
   "dependencies": {
     "@apollo/client": "3.6.9",
